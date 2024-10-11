@@ -6,6 +6,10 @@ module.exports = {
       name: 'beta',
       prerelease: true,
     },
+    {
+      name: 'alpha',
+      prerelease: true,
+    },
   ],
   /*
    * In this order the **prepare** step of @semantic-release/npm will run first
@@ -20,13 +24,18 @@ module.exports = {
   plugins: [
     '@semantic-release/commit-analyzer',
     '@semantic-release/release-notes-generator',
+    '@semantic-release/changelog',
     [
       '@semantic-release/npm',
       {
         tarballDir: 'npm-package/',
       },
     ],
-    '@semantic-release/git',
-    '@semantic-release/github',
+    [
+      '@semantic-release/github',
+      {
+        assets: ['CHANGELOG.md'],
+      },
+    ],
   ],
 };
