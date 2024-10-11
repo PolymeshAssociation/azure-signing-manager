@@ -37,11 +37,13 @@ To authorize access to the key vault a `DefaultAzureCredential` will be created.
 1. AzurePowerShellCredential
 1. AzureDeveloperCliCredential
 
-More details about authorization can be found on the [Azure Docs](https://learn.microsoft.com/en-us/javascript/api/@azure/identity/defaultazurecredential?view=azure-node-latest#@azure-identity-defaultazurecredential-constructor). Optionally, a credential object maybe passed instead.
+More details about authorization can be found on the [Azure Docs](https://learn.microsoft.com/en-us/javascript/api/@azure/identity/defaultazurecredential?view=azure-node-latest#@azure-identity-defaultazurecredential-constructor). Optionally, a credential can be passed instead.
+
+The identity will need permission to read and to sign with the keys. In order for the createKey function to work then create permission will be required as well. At least one of the roles "Key Vault Crypto User" or "Key Vault Crypto Officer" should be assigned. There is more info in the [official guide](https://learn.microsoft.com/en-us/azure/key-vault/general/rbac-guide)
 
 ## Performance Note (for 1000+ keys)
 
-The current implementation enumerates all possible keys and their versions to construct an index of public key to key name lookup. As an integrator you will likely have this data already indexed. If N+1 style performance issues are a concern the constructor can be extended where a lookup you provide can be called. e.g.
+The current implementation enumerates all possible keys and their versions to construct an index of public key to key name. As an integrator you will likely have this data already indexed. If N+1 style performance issues are a concern the constructor can be extended where a lookup you provide would be called to resolve the azure key to call based on the address that is signing. e.g.
 
 ```ts
 interface {

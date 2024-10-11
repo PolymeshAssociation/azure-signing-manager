@@ -54,7 +54,8 @@ jobs:
       - name: build
         run: |
           yarn build:ts
-          cp package.json dist/package.json
+          sed 's/dist\//.\//' package.json > dist/package.json
+          cp README.md dist/README.md
       - name: release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
