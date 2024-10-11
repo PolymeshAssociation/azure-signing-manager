@@ -1,5 +1,5 @@
 module.exports = {
-  repositoryUrl: 'https://github.com/PolymeshAssociation/typescript-boilerplate.git',
+  repositoryUrl: 'https://github.com/PolymeshAssociation/azure-signing-manager.git',
   branches: [
     'master',
     {
