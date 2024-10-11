@@ -30,27 +30,31 @@ console.log('created key with address: ', newKey.address) // address is the prim
 
 To authorize access to the key vault a `DefaultAzureCredential` will be created. By default it searches for a credential in this order:
 
-1. EnvironmentCredential
-1. WorkloadIdentityCredential
-1. ManagedIdentityCredential
-1. AzureCliCredential
-1. AzurePowerShellCredential
-1. AzureDeveloperCliCredential
+1. `EnvironmentCredential`
+1. `WorkloadIdentityCredential`
+1. `ManagedIdentityCredential`
+1. `AzureCliCredential`
+1. `AzurePowerShellCredential`
+1. `AzureDeveloperCliCredential`
 
 More details about authorization can be found on the [Azure Docs](https://learn.microsoft.com/en-us/javascript/api/@azure/identity/defaultazurecredential?view=azure-node-latest#@azure-identity-defaultazurecredential-constructor). Optionally, a credential can be passed instead.
 
 The identity will need permission to read and to sign with the keys. In order for the createKey function to work then create permission will be required as well. At least one of the roles "Key Vault Crypto User" or "Key Vault Crypto Officer" should be assigned. There is more info in the [official guide](https://learn.microsoft.com/en-us/azure/key-vault/general/rbac-guide)
 
-## Performance Note (for 1000+ keys)
+## Pricing Note (for HSM keys)
 
-The current implementation enumerates all possible keys and their versions to construct an index of public key to key name. As an integrator you will likely have this data already indexed. If N+1 style performance issues are a concern the constructor can be extended where a lookup you provide would be called to resolve the azure key to call based on the address that is signing. e.g.
-
-```ts
-interface {
-  getKeyName(address: string): Promise<{ name: string; version: string }>
-}
+Storing many HSM keys can be pricy
 ```
+First 250 keys	         $5 per key per month
+From  251 – 1,500 keys	 $2.50 per key per month
+From  1,501 – 4,000 keys $0.90 per key per month
+4,001+ keys	             $0.40 per key per month
++ $0.15/10,000 transactions
+```
+> Only actively used HSM protected keys (used in prior 30-day period)
 
-For now it is recommended to have a key vault dedicated to Polymesh keys and limit the amount of keys.
+Where as software protected keys are charged only the per transaction fee of $0.15/10,000.
 
-Please open an issue if performing the additional work is worth having thousands of keys stored for your use case.
+See the [pricing page](https://azure.microsoft.com/en-us/pricing/details/key-vault/) for details.
+
+If you need large amounts of keys for your use case please reach out via [support](https://polymesh.network/contact-us) to find the best key storage solution for your use case.
