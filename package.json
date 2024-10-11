@@ -2,7 +2,6 @@
   "name": "@polymeshassociation/azure-signing-manager",
   "version": "0.0.0",
   "description": "Allows Azure key vault private keys to sign Polymesh SDK transactions",
-  "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "author": "Polymesh Association",
   "license": "ISC",
