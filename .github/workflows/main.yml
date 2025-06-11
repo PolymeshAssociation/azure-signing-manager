@@ -13,10 +13,10 @@ jobs:
     env:
       CI: true
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: '18.x'
+          node-version: '22.x'
           cache: 'yarn'
       - name: install dependencies
         run: yarn --frozen-lockfile
@@ -29,10 +29,10 @@ jobs:
     env:
       CI: true
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: '18.x'
+          node-version: '22.x'
           cache: 'yarn'
       - name: install dependencies
         run: yarn --frozen-lockfile
@@ -44,10 +44,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: [lint, test]
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: '18.x'
+          node-version: '22.x'
           cache: 'yarn'
       - name: install dependencies
         run: yarn --frozen-lockfile
