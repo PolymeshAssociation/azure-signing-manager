@@ -62,8 +62,8 @@
   "dependencies": {
     "@azure/identity": "^4.4.1",
     "@azure/keyvault-keys": "^4.8.0",
-    "@polkadot/api": "11.2.1",
-    "@polymeshassociation/signing-manager-types": "^3.3.0",
+    "@polkadot/api": "16.5.2",
+    "@polymeshassociation/signing-manager-types": "^3.5.0",
     "secp256k1": "^5.0.0"
   }
 }
